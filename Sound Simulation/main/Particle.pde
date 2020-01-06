@@ -1,0 +1,3 @@
+float stifness;
+
+class Particle(){}

@@ -1,0 +1,27 @@
+class involuteGenerator{
+//generates an involute circle from [0, TWO_PI]
+  float D, r, circum, angle;
+  ArrayList<PVector> involute_values;
+  PVector centre;
+  
+  involuteGenerator(PVector loc, float D_){
+    centre = loc;
+    D = D_;
+    r = D/2;
+    circum = PI*D;
+    angle = 0;
+    involute_values = new ArrayList<PVector>();
+    float angle = 0;
+    while (angle < TWO_PI){
+      float x = r+
+      float y = r
+      PVector coords = new PVector(x,y);
+      involute_values.add(loc);
+    }
+
+  }
+  
+
+  
+
+}
