@@ -15,3 +15,9 @@ void draw(){
   background(0);
   gb.show();
 }
+
+void mousePressed(){
+  int row = int(mouseY/w);
+  int col = int(mouseX/w);
+  gb.board.
+}

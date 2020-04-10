@@ -2,12 +2,14 @@ class Tile {
   boolean isBomb, isRevealed;
   int locx, locy;
   int neighbourCount;
+  int tileState;
 
   Tile(int locx_, int locy_) {
     locx = locx_;
     locy = locy_;
     isBomb = random(1) < 0.25;
     isRevealed = false;
+    tileState = 1;
   }
 
   void show() {
@@ -42,6 +44,13 @@ class Tile {
         }
       }
       neighbourCount = count;
+    }
+  }
+  
+  void cycleTile(){
+    tileState ++;
+    if(tileState > 4){
+      tileState = 1;
     }
   }
 }
