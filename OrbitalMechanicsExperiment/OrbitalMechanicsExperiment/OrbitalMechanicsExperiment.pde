@@ -1,4 +1,10 @@
-import controlP5.*;
+/*
+I'm interested in orbital mechanics. My intention is to project the path given a particular thrust. 
+But first I need to get the basic model down.
+Inspired by Sebastion Lague's video.
+*/
+
+mport controlP5.*;
 
 ControlP5 CP5;
 Slider bigGSlider, initVelSlider, m2Slider;
