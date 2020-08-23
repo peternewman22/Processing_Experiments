@@ -8,9 +8,9 @@ class Star{
     
     Star(float d_, PVector pos_){
         distance = d_;
-        luminence = 255 - map(d,1,20,0,255)
-        vel = 20 - d;
-        size = 40/d;
+        luminence = 255 - map(distance,1,20,0,255);
+        vel = 0.1*(20 - distance);
+        size = 10/distance;
         pos = pos_.copy();
         isOffMap = false;
     }
