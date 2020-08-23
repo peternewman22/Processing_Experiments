@@ -8,11 +8,11 @@ Star ship stays at width/3 and moves up and down according to sin wave to begin 
 Stars that have disappeared off the map are deleted from the array and are replaced by stars appearing at x = width + 5;
 */
 
-
+String shipShape = "   __\n   |  \\\n=E[*|K)--.___\n=E[+,---------'\n  [|_/";
 ArrayList<Star> starfield;
 int starCount = 1000;
-PVector shipPos;
-float theta, distMult;
+Ship ship;
+float theta;
 
 void setup(){
     size(1080, 720);
@@ -20,7 +20,8 @@ void setup(){
     initStarfield();
     fill(255);
     textSize(20);
-    shipPos = new PVector(width/4, height/2);
+    theta = 0;
+    ship = new Ship(shipShape, height/2, height*0.6/2, 15, color(255,0,0));
     
 }
 
@@ -28,10 +29,11 @@ void draw(){
 
     background(0);
     drawStarField();
-    text(spaceship, shipPos.x, shipPos.y);
+    ship.update(theta);
+    ship.show();
     cleanup();
     addNewStars();
-    theta += 0.01;
+    theta += 0.005;
 
 }
 
