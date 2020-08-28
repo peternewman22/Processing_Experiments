@@ -17,7 +17,7 @@ void setup(){
   starCount = 500;
   stars = new PVector[starCount];
   initStars();
-  planetCount = 3;
+  planetCount = 4;
   system = new System();
 
   
