@@ -8,15 +8,17 @@ Body[] bodies;
 PVector[] stars;
 int starCount;
 System system;
+int planetCount;
 
 
 void setup(){
   size(1500, 1500);
-  G = 0.05;
+  G = 0.2;
   starCount = 500;
   stars = new PVector[starCount];
   initStars();
-  system = new System(2);
+  planetCount = 3;
+  system = new System();
 
   
 }

@@ -25,7 +25,7 @@ class Body {
         float d = pos.dist(bodies[i].pos);
         PVector f = PVector.sub(pos, bodies[i].pos); //vector from pos to the other body
         f.normalize(); // make it a unit vector
-        f.mult(-G*m*bodies[i].m/d); // scale it by the gravitational constant
+        f.mult((-G*m*bodies[i].m)/pow(d, 2)); // scale it by the gravitational constant
         fFinal.add(f);
       }
     }
