@@ -9,6 +9,7 @@ PVector[] stars;
 int starCount;
 System system;
 int planetCount;
+int traceSteps;
 
 
 void setup(){
@@ -17,7 +18,8 @@ void setup(){
   starCount = 500;
   stars = new PVector[starCount];
   initStars();
-  planetCount = 4;
+  planetCount = 2;
+  traceSteps = 20;
   system = new System();
 
   
@@ -26,7 +28,7 @@ void setup(){
 void draw(){
   background(0);
   drawStars();
-  system.updateBodies();
+  system.updateSystem();
   system.showBodies();
 }
 
