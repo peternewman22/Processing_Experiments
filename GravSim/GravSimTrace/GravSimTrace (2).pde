@@ -10,7 +10,6 @@ int starCount;
 System system;
 int planetCount;
 int traceSteps;
-int stateCount;
 
 
 void setup(){
@@ -21,7 +20,6 @@ void setup(){
   initStars();
   planetCount = 2;
   traceSteps = 20;
-  stateCount = 10*traceSteps;
   system = new System();
 
   
