@@ -3,17 +3,16 @@ Modelling sound waves by sending particles scattering in all directions
 Bounce off surfaces
 */
 
-PVector[] wavefront;
+particle[] wavefront;
 int particleCount;
-float t;
-float v;
+float t, v;
 
 void setup(){
-    size(1000, 1000);
-    wavefront = new PVector[wavefront];
-    updateWavefront();
-    float t = 0;
-    float v = 1;
+    size(500, 500);
+    particleCount = 720;
+    wavefront = new particle[particleCount];
+    initWavefront();
+    t = 0;
 }
 
 void draw(){
@@ -23,17 +22,25 @@ void draw(){
     t += 1;
 }
 
-void updateWavefront(){
+void initWavefront(){
     for(int i = 0; i < particleCount; i++){
-        wavefront[i] = new PVector(v*t*cos(i), v*t*sin(i));
+        PVector heading = new PVector(cos(i/2), sin(i/2));
+        wavefront[i] = new particle(new PVector(0,0), heading);
     }
 }
 
+void updateWavefront(){
+  for(particle p : wavefront){
+    p.update();
+  }
+}
+
 void renderWavefront(){
-    strokeWeight(5);
-    stroke(255);
+
+    pushMatrix();
+    translate(width/2, height/2);
     for(int i = 0; i < particleCount; i++){
-        PVector p = wavefront[i];
-        point(p.x, p.y);
+        wavefront[i].render();
     }
+    popMatrix();
 }
