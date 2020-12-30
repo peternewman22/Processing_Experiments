@@ -1,8 +1,13 @@
 class System {
+<<<<<<< HEAD
   Body[][] bodies;
   Body[][] buffer; // eachRow is a different state, eachCol is a different body
   PVector[][] trace;
 
+=======
+  Body[][] bodies; // eachRow is a different state, eachCol is a different body
+  Body[][] buffer;
+>>>>>>> a093fdf068cdb164f3ea3be27749d4837b0a76f2
   System() {
     bodyStates = new Body[stateCount][planetCount];
     buffer = new Body[stateCount][planetCount];
@@ -49,5 +54,15 @@ class System {
         point(trace[eachState][eachPlanet].x, bodies[eachState][eachPlanet].y);
 
     }
+  }
+
+  void deepArrayCopy(Body[][] src, int srcPos, Body[][] dst, int dstPos, int len){
+    // takes everything after the first row and copies it to beginning of the buffer
+      for(int i = 0; i < src.length; i++){
+        arrayCopy(src[i],srcPos,dst[i],dstPos,len);
+      }
+      
+      
+//arrayCopy(src, srcPosition, dst, dstPosition, length)
   }
 }
