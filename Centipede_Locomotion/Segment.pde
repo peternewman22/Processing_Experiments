@@ -1,5 +1,5 @@
 class Segment {
-  PVector pos;
+  PVector pos, leftA, rightA, leftT, rightT;
   float size;
   PVector orientation;
   String type;
@@ -12,6 +12,10 @@ class Segment {
     size = size_;
     phase = phase_;
     col = col_;
+    leftA = PVector.fromAngle(orientation.heading() - PI/6).setMag(100);
+    rightA = PVector.fromAngle(orientation.heading() + PI/6).setMag(100);
+    leftT = PVector.fromAngle(orientation.heading() + PI - PI/12).setMag(100);
+    rightT = PVector.fromAngle(orientation.heading() + PI + PI/12).setMag(100);
   }
 
   void show() {
@@ -27,24 +31,21 @@ class Segment {
         ellipse(pos.x, pos.y, size, size);
         stroke(col);
         strokeWeight(5);
-        pushMatrix();
-          translate(pos.x, pos.y);
-          rotate(orientation.heading());
-          line(0, 0, 100,-40);
-          line(0, 0, 100, 40);
-        popMatrix();
+        
+        PVector lAEnd = pos.copy().add(leftA);
+        PVector rAEnd = pos.copy().add(rightA);
+        line(pos.x, pos.y, lAEnd.x, lAEnd.y);
+        line(pos.x, pos.y, rAEnd.x, rAEnd.y);
+        
         break;
-        // draw antennae
       case "Tail":
         noStroke();
         ellipse(pos.x, pos.y, size, size);
         stroke(col);
-        pushMatrix();
-          translate(pos.x, pos.y);
-          rotate(orientation.heading());
-          line(0, 0, -100, 10);
-          line(0, 0, -100, -10);
-        popMatrix();
+        PVector lTEnd = pos.copy().add(leftT);
+        PVector rTEnd = pos.copy().add(rightT);
+        line(pos.x, pos.y, lTEnd.x, lTEnd.y);
+        line(pos.x, pos.y, rTEnd.x, rTEnd.y);
         break;
       
     }
