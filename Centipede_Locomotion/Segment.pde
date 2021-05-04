@@ -1,9 +1,11 @@
 class Segment {
-  PVector pos, leftA, rightA, leftT, rightT;
-  float size;
+  // Note: Each segment has a leg that is drawn from 
+  PVector pos, leftA, rightA, leftT, rightT, shoulderL, shoulderR;
+  PVector lAEnd, rAEnd, lLegEnd, rLegEnd;
+  float size, legLength, antennaeLength;
   PVector orientation;
   String type;
-  float phase;
+  float phase, angle;
   color col;
   Segment(float x, float y, float size_, PVector orientation_, String type_, float phase_, color col_) {
     type = type_;
@@ -11,11 +13,28 @@ class Segment {
     orientation = orientation_.copy();
     size = size_;
     phase = phase_;
+    angle = 0;
+    legLength = 80;
+    antennaeLength = 100;
     col = col_;
-    leftA = PVector.fromAngle(orientation.heading() - PI/6).setMag(100);
-    rightA = PVector.fromAngle(orientation.heading() + PI/6).setMag(100);
-    leftT = PVector.fromAngle(orientation.heading() + PI - PI/12).setMag(100);
-    rightT = PVector.fromAngle(orientation.heading() + PI + PI/12).setMag(100);
+    shoulderL = PVector.fromAngle(orientation.heading() - PI/2).setMag(size/2);
+    shoulderR = PVector.fromAngle(orientation.heading() + PI/2).setMag(size/2);
+    leftA = PVector.fromAngle(orientation.heading() - PI/6).setMag(antennaeLength);
+    rightA = PVector.fromAngle(orientation.heading() + PI/6).setMag(antennaeLength);
+    leftT = PVector.fromAngle(orientation.heading() + PI - PI/12).setMag(antennaeLength);
+    rightT = PVector.fromAngle(orientation.heading() + PI + PI/12).setMag(antennaeLength);
+    lAEnd = new PVector(0,0);
+    rAEnd = new PVector(0,0);
+    lLegEnd = new PVector(0,0);
+    rLegEnd = new PVector(0,0);
+  }
+  
+  void update(){
+    // finds the end point of the L and R leg if it starts at the shoulder
+    lAEnd.set(pos.copy().add(leftA));
+    rAEnd.set(pos.copy().add(rightA));
+    lLegEnd.set(pos.copy().add(shoulderL).add(new PVector(legLength*cos(angle), legLength*sin(angle))));
+    lLegEnd.set(pos.copy().add(shoulderR).add(new PVector(legLength*cos(angle), legLength*sin(angle))));
   }
 
   void show() {
@@ -26,14 +45,15 @@ class Segment {
       
       case "Body":
         ellipse(pos.x, pos.y, size, size);
+        stroke(255,0,0);
+        strokeWeight(5);
+        line(shoulderL.x,shoulderL.y,lLegEnd.x,lLegEnd.y);
+        line(shoulderR.x,shoulderR.y,rLegEnd.x,rLegEnd.y);
         break;
       case "Head":
         ellipse(pos.x, pos.y, size, size);
         stroke(col);
         strokeWeight(5);
-        
-        PVector lAEnd = pos.copy().add(leftA);
-        PVector rAEnd = pos.copy().add(rightA);
         line(pos.x, pos.y, lAEnd.x, lAEnd.y);
         line(pos.x, pos.y, rAEnd.x, rAEnd.y);
         

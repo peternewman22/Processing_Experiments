@@ -18,6 +18,11 @@ class Centipede {
   }
 
 
+  void update(){
+    for (int i = body.length-2; i >= 1; i--) {
+      body[i].update();
+    }
+  }
 
   void show() {
     for (int i = body.length-1; i > -1; i--) {

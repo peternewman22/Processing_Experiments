@@ -13,5 +13,6 @@ void setup(){
 
 void draw(){
   background(0);
+  c.update();
   c.show();
 }
