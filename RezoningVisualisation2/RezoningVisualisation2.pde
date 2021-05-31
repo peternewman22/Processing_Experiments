@@ -76,9 +76,9 @@ int findIndex(float[] dists, float d) {
 
 void keyPressed() {
   // increment or decrement towns, constrained to the TownCount
-  if ((key == LEFT) && nearestNTowns < towns.length) {
+  if ((keyCode == UP) && nearestNTowns < towns.length) {
     nearestNTowns += 1;
-  } else if ((key == RIGHT) && nearestNTowns > 1) {
+  } else if ((keyCode == DOWN) && nearestNTowns > 1) {
     nearestNTowns -= 1;
   }
 }
