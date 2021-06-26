@@ -35,7 +35,7 @@ void draw() {
   
   fft.analyze(spectrum);
   push();
-  translate(width/2, height/2);
+  translate(width/2, height*7/8);
   beginShape();
   for(int i = 0; i < bands/2; i++){
   // The result of the FFT is normalized
@@ -44,13 +44,28 @@ void draw() {
   //rect(i*w,height,width/bands,-spectrum[i]*height*5);
     float angle = map(i, 0, bands, 0, TWO_PI);
     //int col = int(map(i, 0, bands, 0, 255));
-    float r = map(spectrum[i], 0, 1, 0, width/2);
+    float r = map(spectrum[i], 0, 1, 0, width/2)*5;
   // trying a circular visualisation
     float x = r*cos(angle-PI/2);
     float y = r*sin(angle-PI/2);
     //stroke(col);
     //line(0,0,x,y);
+    vertex(x,y);
+  }
+  endShape();
+  
+  // mirroring
+  beginShape();
+  for(int i = 0; i < bands/2; i++){
+    float angle = map(i, 0, bands, 0, TWO_PI);
+    float r = map(spectrum[i], 0, 1, 0, width/2)*5;
+    float x = -r*cos(angle-PI/2);
+    float y = r*sin(angle-PI/2);
+    //stroke(col);
+    //line(0,0,x,y);
+    vertex(x,y);
   } 
+  
   endShape();
   pop();
   
