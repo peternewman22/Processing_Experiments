@@ -1,7 +1,7 @@
 import processing.sound.*;
 FFT fft;
 AudioIn in;
-int bands = 64;
+int bands = 128;
 float[] spectrum = new float[bands];
 SoundFile file;
 
@@ -44,7 +44,8 @@ void draw() {
   //rect(i*w,height,width/bands,-spectrum[i]*height*5);
     float angle = map(i, 0, bands, 0, TWO_PI);
     //int col = int(map(i, 0, bands, 0, 255));
-    float r = map(spectrum[i], 0, 1, 0, width/2)*5;
+    float r = map(spectrum[i], 0, 1, 0, width/2)*10;
+    constrain(r,0,height*7/8);
   // trying a circular visualisation
     float x = r*cos(angle-PI/2);
     float y = r*sin(angle-PI/2);
@@ -58,7 +59,7 @@ void draw() {
   beginShape();
   for(int i = 0; i < bands/2; i++){
     float angle = map(i, 0, bands, 0, TWO_PI);
-    float r = map(spectrum[i], 0, 1, 0, width/2)*5;
+    float r = map(spectrum[i], 0, 1, 0, width/2)*10 ;
     float x = -r*cos(angle-PI/2);
     float y = r*sin(angle-PI/2);
     //stroke(col);
