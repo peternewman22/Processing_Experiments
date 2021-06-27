@@ -1,6 +1,6 @@
 class Mover{
   PVector pos, vel, acc;
-  float m;
+
   color col;
   float diam;
   
@@ -9,20 +9,31 @@ class Mover{
     vel = new PVector(0,0);
     acc = new PVector(0,0);
     colorMode(HSB);
-    col = color(col_,100, 100);
-    m = 1;
+    col = color(col_,255,255);
+
     diam = moverDiam;
     
   }
   
   void applyForce(PVector f){
-    acc.add(f.div(m));
+    f.limit(5);
+    acc.add(f);
   }
   
   void update(){
     vel.add(acc);
+    vel.limit(5);
     pos.add(vel);
+    edges();
     acc.mult(0);
+  }
+  
+  void edges(){
+    if(pos.y > height/2){
+      pos.y = height/2;
+    } else if(pos.y < -height/2){
+      pos.y = -height/2;
+    }
   }
   
   void show(){

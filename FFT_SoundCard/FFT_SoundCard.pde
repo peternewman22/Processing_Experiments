@@ -16,7 +16,8 @@ Mover[] movers;
 int armCount = 6; // number of moving arms
 int moverCount = 32; // number of circles
 float moverDiam = 12;
-PVector grav = new PVector(0, 0.1);
+float gravMag = 3;
+PVector grav = new PVector(0, gravMag);
 float a = 0; // slow global rotation
 
 
@@ -51,7 +52,7 @@ void setup() {
     movers[i] = new Mover(i*moverDiam, i*(width/2)/moverCount);
   }
 
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, 360, 255, 255);
 }
 
 void draw() {
@@ -61,11 +62,14 @@ void draw() {
 
   push();
   translate(width/2, height/2);
-  rotate(a);
-  for (Mover m : movers) {
-    m.applyForce(grav);
-    m.update();
-    m.show();
+  //rotate(a);
+  
+  for(int i = 0; i < movers.length; i ++){
+    movers[i].applyForce(grav);
+    float f = map(spectrum[i],0,1,1,5);
+    movers[i].applyForce(new PVector(0,-f));
+    movers[i].update();
+    movers[i].show();
   }
   //for (int i = 0; i < armCount; i++) {
   //  rotate(TWO_PI/armCount);
