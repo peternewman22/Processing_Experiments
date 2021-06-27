@@ -4,14 +4,14 @@ class Mover{
   color col;
   float diam;
   
-  Mover(float x){
-    pos = new PVector(x, height/2);
+  Mover(float x, int col_){
+    pos = new PVector(x, 0);
     vel = new PVector(0,0);
     acc = new PVector(0,0);
     colorMode(HSB);
-    col = color(random(255));
-    m = 100;
-    diam = 10;
+    col = color(col_,100, 100);
+    m = 1;
+    diam = moverDiam;
     
   }
   
@@ -27,7 +27,7 @@ class Mover{
   
   void show(){
     fill(col);
-    colorMode(HSB);
+    noStroke();
     ellipse(pos.x, pos.y, diam, diam);
   }
 
