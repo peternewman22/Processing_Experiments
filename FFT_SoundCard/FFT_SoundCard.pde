@@ -24,6 +24,7 @@ float moverDiam = 12;
 float gravMag = 1;
 PVector grav = new PVector(0, gravMag);
 float a = 0; // slow global rotation
+int bg = 0;
 
 
 void setup() {
@@ -64,9 +65,11 @@ void setup() {
 }
 
 void draw() {
-  background(0, 0, 0);
-
   fft.analyze(spectrum);
+  bg = int(bg + spectrum[0]*5)%360; // resets after going through the whole range
+  
+  background(bg, 255, 100);
+  
   //update max Amps and write in spectrum
   for (int i = 0; i < 32; i++) {
     if (showText) {
