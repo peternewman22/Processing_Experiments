@@ -25,10 +25,15 @@ float gravMag = 1;
 PVector grav = new PVector(0, gravMag);
 float a = 0; // slow global rotation
 int bg = 0;
+float avBG = 0;
+int avOverCount = 40;
+
+ArrayList<Float> bgVals = new ArrayList<Float>();
 
 
 void setup() {
   size(720, 720);
+  bgVals.add(0.0);
 
   //println(allSounds.list());
   file = new SoundFile(this, "epic.mp3");
@@ -66,8 +71,27 @@ void setup() {
 
 void draw() {
   fft.analyze(spectrum);
-  bg = int(bg + spectrum[0]*5)%360; // resets after going through the whole range
   
+  
+  
+  // setting the background cycle rate on low freq band
+  //bg = int(bg + spectrum[0]*5)%360; // resets after going through the whole range
+ 
+  // setting it based on the amplitude of the lowest freq band
+  bgVals.add(spectrum[0]);
+  
+  // stop the array getting too big
+  if(bgVals.size() > avOverCount){
+    bgVals.remove(0);
+  }
+  avBG = 0;
+  //get the average
+  for(float a : bgVals){
+    avBG += a;
+  }
+  
+  
+  bg = int(map(avBG/bgVals.size(),0,0.95,0,360));
   background(bg, 255, 100);
   
   //update max Amps and write in spectrum
