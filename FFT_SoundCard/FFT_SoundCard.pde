@@ -9,6 +9,9 @@ float[] spectrum = new float[bands];
 ArrayList<Float> low;
 
 
+boolean showText = false;
+
+
 // for testing purposes
 float greatestAmp = 0;
 
@@ -18,7 +21,7 @@ int armCount = 6; // number of moving arms
 int moverCount = 32; // number of circles
 float[] maxAmps = new float[moverCount];
 float moverDiam = 12;
-float gravMag = 3;
+float gravMag = 1;
 PVector grav = new PVector(0, gravMag);
 float a = 0; // slow global rotation
 
@@ -55,7 +58,7 @@ void setup() {
     movers[i] = new Mover(i*moverDiam, i*(width/2)/moverCount);
     maxAmps[i] = 0;
   }
-  
+
 
   colorMode(HSB, 360, 255, 255);
 }
@@ -65,33 +68,37 @@ void draw() {
 
   fft.analyze(spectrum);
   //update max Amps and write in spectrum
-  for(int i = 0; i < 32; i++){
-    text(spectrum[i],10,i*20);
-    if(spectrum[i] > maxAmps[i]){
+  for (int i = 0; i < 32; i++) {
+    if (showText) {
+      text(spectrum[i], 10, i*20);
+    }
+    if (spectrum[i] > maxAmps[i]) {
       maxAmps[i] = spectrum[i];
     }
-    text(maxAmps[i], 100, i*20);
+    if (showText) {
+      text(maxAmps[i], 100, i*20);
+    }
   }
 
-  //push();
-  //translate(width/2, height/2);
-  ////rotate(a);
-  
-  //for(int i = 0; i < movers.length; i ++){
-  //  movers[i].applyForce(grav);
-  //  float f = map(spectrum[i],0,1,1,5);
-  //  movers[i].applyForce(new PVector(0,-f));
-  //  movers[i].update();
-  //  movers[i].show();
-  //}
-  //for (int i = 0; i < armCount; i++) {
-  //  rotate(TWO_PI/armCount);
-  //  for (Mover m : movers) {
-  //    m.show();
-  //  }
-  //}
-  //pop();
-  //a+= 0.001;
+  push();
+  translate(width/2, height/2);
+  rotate(a);
+
+  for (int i = 0; i < movers.length; i ++) {
+    movers[i].applyForce(grav);
+    float f = map(spectrum[i], 0, maxAmps[i]/4, 0, 1); //equalizing
+    movers[i].applyForce(new PVector(0, -f));
+    movers[i].update();
+    movers[i].show();
+  }
+  for (int i = 0; i < armCount; i++) {
+    rotate(TWO_PI/armCount);
+    for (Mover m : movers) {
+      m.show();
+    }
+  }
+  pop();
+  a+= 0.001;
 }
 
 
@@ -168,5 +175,7 @@ void keyPressed() {
     } else {
       file.play();
     }
+  } else if(keyCode == TAB){
+    showText = !showText; //toggle
   }
 }

@@ -16,13 +16,11 @@ class Mover{
   }
   
   void applyForce(PVector f){
-    f.limit(5);
     acc.add(f);
   }
   
   void update(){
     vel.add(acc);
-    vel.limit(5);
     pos.add(vel);
     edges();
     acc.mult(0);
@@ -31,8 +29,10 @@ class Mover{
   void edges(){
     if(pos.y > height/2){
       pos.y = height/2;
+      vel.y = 0;
     } else if(pos.y < -height/2){
       pos.y = -height/2;
+      vel.y = 0;
     }
   }
   
