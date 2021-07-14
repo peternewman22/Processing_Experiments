@@ -71,61 +71,66 @@ void setup() {
 
 void draw() {
   fft.analyze(spectrum);
-  
-  
+  background(0);
+  showCircleSpike();
+  //background(0);
+  //showLevels(1);
   
   // setting the background cycle rate on low freq band
   //bg = int(bg + spectrum[0]*5)%360; // resets after going through the whole range
  
   // setting it based on the amplitude of the lowest freq band
-  bgVals.add(spectrum[0]);
+  //bgVals.add(spectrum[0]);
   
-  // stop the array getting too big
-  if(bgVals.size() > avOverCount){
-    bgVals.remove(0);
-  }
-  avBG = 0;
-  //get the average
-  for(float a : bgVals){
-    avBG += a;
-  }
+  //// stop the array getting too big
+  //if(bgVals.size() > avOverCount){
+  //  bgVals.remove(0);
+  //}
+  //avBG = 0;
+  ////get the average
+  //for(float a : bgVals){
+  //  avBG += a;
+  //}
   
   
-  bg = int(map(avBG/bgVals.size(),0,0.95,0,360));
-  background(bg, 255, 100);
+  //bg = int(map(avBG/bgVals.size(),0,0.95,0,360));
+  //background(bg, 255, 100);
   
-  //update max Amps and write in spectrum
-  for (int i = 0; i < 32; i++) {
-    if (showText) {
-      text(spectrum[i], 10, i*20);
-    }
-    if (spectrum[i] > maxAmps[i]) {
-      maxAmps[i] = spectrum[i];
-    }
-    if (showText) {
-      text(maxAmps[i], 100, i*20);
-    }
-  }
+  ////update max Amps and write in spectrum
+  //for (int i = 0; i < 32; i++) {
+  //  if (showText) {
+  //    text(spectrum[i], 10, i*20);
+  //  }
+  //  if (spectrum[i] > maxAmps[i]) {
+  //    maxAmps[i] = spectrum[i];
+  //  }
+  //  if (showText) {
+  //    text(maxAmps[i], 100, i*20);
+  //  }
+  //}
 
-  push();
-  translate(width/2, height/2);
-  rotate(a);
+  //push();
+  //translate(width/2, height/2);
+  //rotate(a);
 
-  for (int i = 0; i < movers.length; i ++) {
-    movers[i].applyForce(grav);
-    float f = map(spectrum[i], 0, maxAmps[i]/4, 0, 1); //equalizing
-    movers[i].applyForce(new PVector(0, -f));
-    movers[i].update();
-    movers[i].show();
-  }
-  for (int i = 0; i < armCount; i++) {
-    rotate(TWO_PI/armCount);
-    for (Mover m : movers) {
-      m.show();
-    }
-  }
-  pop();
-  a+= 0.001;
+  //for (int i = 0; i < movers.length; i ++) {
+  //  movers[i].applyForce(grav);
+  //  float f = map(spectrum[i], 0, maxAmps[i]/4, 0, 1); //equalizing
+  //  movers[i].applyForce(new PVector(0, -f));
+  //  movers[i].update();
+  //  movers[i].show();
+  //}
+  
+  //// copying around a circle
+  //for (int i = 0; i < armCount; i++) {
+  //  rotate(TWO_PI/armCount);
+  //  for (Mover m : movers) {
+  //    m.show();
+  //  }
+  //}
+  //pop();
+  //a+= 0.001;
+  
 }
 
 
