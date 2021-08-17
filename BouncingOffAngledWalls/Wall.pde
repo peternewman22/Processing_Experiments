@@ -1,9 +1,13 @@
 class Wall {
   PVector start, end, ab;
-  Wall(float startX, float startY, float endX, float endY) {
+  float a;
+  int ix;
+  Wall(float startX, float startY, float endX, float endY, int ix_) {
     start = new PVector(startX, startY);
     end = new PVector(endX, endY);
     ab = PVector.sub(end, start);
+    a = ab.heading();
+    ix = ix_;
   }
 
   void show() {
